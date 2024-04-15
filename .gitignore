@@ -19,6 +19,6 @@ yarn-error.log
 /.vscode
 
 .DS_Store
-redisdata
-mysqldata
+docker/redisdata
+docker/mysqldata
 docker/certs
