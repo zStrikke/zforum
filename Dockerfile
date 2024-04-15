@@ -4,6 +4,7 @@ WORKDIR /usr/src
 
 ARG user
 ARG uid
+ARG env
 
 RUN apt update && apt install -y \
     curl \
@@ -35,7 +36,12 @@ COPY ./docker/php-fpm/php-prod.ini /usr/local/etc/php/conf.d/php.ini
 COPY ./docker/php-fpm/www.conf /usr/local/etc/php-fpm.d/www.conf
 COPY ./docker/bin/update.sh /usr/src/update.sh
 
-RUN composer install --no-scripts
+RUN if [ "$env" = "dev" ]; then \
+        composer install --no-scripts; \
+    else \
+        composer install --prefer-dist --no-scripts --no-dev --no-autoloader && rm -rf /root/.composer; \
+        composer dump-autoload --no-scripts --no-dev --optimize; \
+    fi
 
 COPY . .
 

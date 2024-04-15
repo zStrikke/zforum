@@ -5,6 +5,7 @@ services:
       args:
         user: ${USER}
         uid: 1000
+        env: dev
       context: .
       dockerfile: ./Dockerfile
       target: laravel
@@ -35,6 +36,7 @@ services:
       args:
         user: ${USER}
         uid: 1000
+        env: dev
       context: .
       dockerfile: ./Dockerfile
       target: scheduler
@@ -59,6 +61,7 @@ services:
       args:
         user: ${USER}
         uid: 1000
+        env: dev
       context: .
       dockerfile: ./Dockerfile
       target: worker
@@ -121,6 +124,7 @@ services:
       args:
         user: ${USER}
         uid: 1000
+        env: dev
       context: .
       dockerfile: ./Dockerfile
     command: sh -c "./wait-for-it.sh mysql:3306 -t 30 && ./update.sh"
